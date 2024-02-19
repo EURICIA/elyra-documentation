@@ -96,7 +96,7 @@ Building extension in .
 An error occurred.
 ValueError: Extensions require a devDependency on @jupyterlab/builder@^3.6.7, you have a dependency on 4.1.1
 See the log file for details:  /var/folders/g0/58s2gb0j08350ftl0tvbd_zc0000gn/T/jupyterlab-debug-hjlhm2bx.log
-(elyra) xinchaochen@nuthatch-402 theme % jupyterlab --version
+(elyra) xinchaochen@nuthatch-402 theme % jupyter lab --version
 zsh: command not found: jupyterlab
 
 Fixed by upgrading jupyter lab
@@ -109,4 +109,39 @@ jupyter lab --watch
 
 Check the theme. Once JupyterLab is open, you can check if your theme is applied correctly. You can change the theme in JupyterLab by going to Settings > JupyterLab Theme and selecting your theme.
 
+
+> jlpm run build:lib && jlpm run build:labextension:dev
+
+yarn run v1.21.1
+$ tsc
+✨  Done in 3.15s.
+yarn run v1.21.1
+$ jupyter labextension build --development True .
+Building extension in .
+An error occurred.
+ValueError: Extensions require a devDependency on @jupyterlab/builder@^3.6.7, you have a dependency on 4.1.1
+See the log file for details:  /var/folders/g0/58s2gb0j08350ftl0tvbd_zc0000gn/T/jupyterlab-debug-d8hk3_1o.log
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+npm ERR! Lifecycle script `build` failed with error: 
+npm ERR! Error: command failed 
+npm ERR!   in workspace: @elyra/theme-extension@4.0.0-dev 
+npm ERR!   at location: /Users/xinchaochen/Desktop/RCOS/elyra/packages/theme 
+error Command failed with exit code 1.
+
+Run pip install -U jupyterlab
+
+Remove yarn log, clean cache
+Switch between yarn 
+
+**To change yarn version**
+yarn set version berry // switch to 4.0
+yarn set version 3.5 // or to specific version
+
+pip install --upgrade jupyterlab==4.0.9
+Upgrade jupyter lab to version for theme
+
+
+Fix issue push to pr
+Make file for instruction to deploy that one extensions 
 
