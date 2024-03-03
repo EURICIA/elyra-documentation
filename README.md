@@ -114,6 +114,46 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
     Example:
     - [React JSONSchema Form v5.x Upgrade Guide](https://rjsf-team.github.io/react-jsonschema-form/docs/migration-guides/v5.x%20upgrade%20guide/)
 
+## Included Features
+
+### OK
+- **code-viewer**
+- **services**
+- **theme**
+- **script-editor**
+- **python-editor**
+
+### Working On
+- **code-snippet**
+
+### Need to Work On
+- **ui-components**
+- **pipeline-editor**
+
+### To Be Discovered
+- **metadata-common**
+- **r-editor**
+- **scala-editor**
+- **metadata**
+- **script-debugger**
+- **theme**
+
+
+### March/02/2024
+Package Installations 
+- several warnings were encountered, but can be ignored as of now
+
+ESLint Linting
+- In @elyra/python-editor/src/index.ts, the CodeEditor is defined but never used. This is an informational warning and can be ignored
+- In @elyra/ui-components/src/FormComponents/DropDown.tsx, the Field is defined but never used. Additionally, there is an error indicating that the interface name DropDownProps does not match the naming convention. This should be addressed by renaming the interface to adhere to the convention
+- In @elyra/ui-components/src/FormComponents/PasswordField.tsx, the Field is defined but never used. This is an informational warning and can be ignored
+- In @elyra/ui-components/src/FormEditor.tsx, the RegistryFieldsType is defined but never used. This is an informational warning and can be ignored
+
+Next Steps
+- In @elyra/ui-components/src/FormComponents/DropDown.tsx, rename the DropDownProps interface to adhere to the naming convention
+- Review and assess whether the unused definitions reported by ESLint need to be removed or if they are intentional and can be ignored
+- After addressing the above issues, re-run the build process using the provided commands
+
 ## **Additional Resources**
 
 - [JupyterLab Extension Migration Guide](https://jupyterlab.readthedocs.io/en/latest/extension/extension_migration.html)
