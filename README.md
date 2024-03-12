@@ -1,17 +1,16 @@
+```markdown
 # Elyra Documentation
 
 This documentation provides a comprehensive guide for working on Elyra. Follow the procedures and steps outlined below for a seamless development experience.
 
 ## **Procedure**
 
-1. Activate the virtual environment.
-
+1. **Activate the virtual environment:**
     ```bash
     conda activate <env-name>
     ```
 
-2. Perform a clean installation in development mode.
-
+2. **Perform a clean installation in development mode:**
     ```bash
     make clean install-dev
     ```
@@ -71,7 +70,6 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 ## **Handling Compilation Errors**
 
 - If errors occur during compilation, address them accordingly.
-
     ```bash
     jlpm run build:lib && jlpm run build:labextension:dev
     ```
@@ -107,12 +105,10 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 
 - Remove yarn log, clean cache, and switch between yarn versions.
 
-## **Fix Issue and Push to PR**
+- Note:
+  - Jupyter Lab 4.x is using yarn 3.5
+  - Every time running make clean install, have to manually update Jupyter Lab from 3.6x to 4.x
 
-- After fixing the issue, create a file with instructions to deploy that one extension.
-
-    Example:
-    - [React JSONSchema Form v5.x Upgrade Guide](https://rjsf-team.github.io/react-jsonschema-form/docs/migration-guides/v5.x%20upgrade%20guide/)
 
 ## Included Features
 
@@ -129,30 +125,20 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 ### Need to Work On
 - **ui-components**
 - **pipeline-editor**
+	- requires following packages to build:
+		services : valid
+		metadata : in progress
+- **metadata-common**
+	-   Type 'IFormRendererRegistry' is not assignable to type 'RegistryFieldsType'.
+- **metadata**
+	- requires ui-component
 
 ### To Be Discovered
-- **metadata-common**
 - **r-editor**
 - **scala-editor**
-- **metadata**
 - **script-debugger**
 - **theme**
 
-
-### March/02/2024
-Package Installations 
-- several warnings were encountered, but can be ignored as of now
-
-ESLint Linting
-- In @elyra/python-editor/src/index.ts, the CodeEditor is defined but never used. This is an informational warning and can be ignored
-- In @elyra/ui-components/src/FormComponents/DropDown.tsx, the Field is defined but never used. Additionally, there is an error indicating that the interface name DropDownProps does not match the naming convention. This should be addressed by renaming the interface to adhere to the convention
-- In @elyra/ui-components/src/FormComponents/PasswordField.tsx, the Field is defined but never used. This is an informational warning and can be ignored
-- In @elyra/ui-components/src/FormEditor.tsx, the RegistryFieldsType is defined but never used. This is an informational warning and can be ignored
-
-Next Steps
-- In @elyra/ui-components/src/FormComponents/DropDown.tsx, rename the DropDownProps interface to adhere to the naming convention
-- Review and assess whether the unused definitions reported by ESLint need to be removed or if they are intentional and can be ignored
-- After addressing the above issues, re-run the build process using the provided commands
 
 ## **Additional Resources**
 
@@ -166,9 +152,3 @@ Next Steps
 usion)
 - [JupyterLab API: IFormRendererRegistry](https://jupyterlab.readthedocs.io/en/stable/api/interfaces/ui_components.IFormRendererRegistry.html)
 - [JupyterLab 4.0 Documentation](https://jupyterlab.readthedocs.io/en/4.0.x/extension/virtualdom.html)
-
-
-
-
-
-
