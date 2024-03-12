@@ -118,12 +118,12 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 - **theme**
 - **script-editor**
 - **python-editor**
+- **ui-components**
 
 ### Working On
 - **code-snippet**
 
 ### Need to Work On
-- **ui-components**
 - **pipeline-editor**
 	- requires following packages to build:
 		services : valid
@@ -132,6 +132,20 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 	-   Type 'IFormRendererRegistry' is not assignable to type 'RegistryFieldsType'.
 - **metadata**
 	- requires ui-component
+		(elyra) xinchaochen@midway-atoll-20 metadata % jlpm run build:lib && jlpm run build:labextension:dev
+src/index.ts:77:47 - error TS2559: Type 'FC<DropDownProps>' has no properties in common with type 'IFormRenderer'.
+
+77     componentRegistry.addRenderer('dropdown', DropDown);
+                                                 ~~~~~~~~
+
+src/index.ts:78:47 - error TS2559: Type 'FC<{}>' has no properties in common with type 'IFormRenderer'.
+
+78     componentRegistry.addRenderer('password', PasswordField);
+                                                 ~~~~~~~~~~~~~
+
+
+Found 2 errors in the same file, starting at: src/index.ts:77
+
 
 ### To Be Discovered
 - **r-editor**
