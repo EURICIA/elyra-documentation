@@ -119,6 +119,9 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 - **script-editor**
 - **python-editor**
 - **ui-components**
+- **r-editor**
+- **scala-editor**
+- **script-debugger**
 
 ### Working On
 - **code-snippet**
@@ -148,14 +151,27 @@ Found 2 errors in the same file, starting at: src/index.ts:77
 
 
 ### To Be Discovered
-- **r-editor**
-- **scala-editor**
-- **script-debugger**
-- **theme**
 
+## Latest make clean install error
+/Users/xinchaochen/Desktop/RCOS/elyra/packages/python-editor/src/index.ts
+  25:10  warning  'CodeEditor' is defined but never used   @typescript-eslint/no-unused-vars
+  43:8   warning  'IDisposable' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormComponents/DropDown.tsx
+  17:8   warning  'Field' is defined but never used                                 @typescript-eslint/no-unused-vars
+  23:11  error    Interface name `DropDownProps` must match the RegExp: /^I[A-Z]/u  @typescript-eslint/naming-convention
+
+/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormComponents/PasswordField.tsx
+  16:8  warning  'Field' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormEditor.tsx
+  22:8  warning  'Field' is defined but never used                     @typescript-eslint/no-unused-vars
+  26:3  warning  'RegistryFieldsType' is defined but never used        @typescript-eslint/no-unused-vars
+  29:3  warning  'ErrorListProps' is defined but never used            @typescript-eslint/no-unused-vars
+  30:3  warning  'ObjectFieldTemplateProps' is defined but never used  @typescript-eslint/no-unused-vars
+  31:3  warning  'RJSFSchema' is defined but never used                @typescript-eslint/no-unused-vars
 
 ## **Additional Resources**
-
 - [JupyterLab Extension Migration Guide](https://jupyterlab.readthedocs.io/en/latest/extension/extension_migration.html)
 - [React JSONSchema Form Documentation](https://rjsf-team.github.io/react-jsonschema-form/docs/advanced-customization/custom-widgets-fields/)
 - [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/latest/)
