@@ -129,12 +129,65 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
 
 ### Working On
 - **code-snippet**
+- **pipeline-editor**
 
 ### Need to Work On
-- **pipeline-editor**
 
 
 ### To Be Discovered
+
+##code-snippet
+Found 7 errors in the same file, starting at: src/CodeSnippetWidget.tsx:178
+
+(elyra) xinchaochen@baker-16 code-snippet % jlpm run build:lib && jlpm run build:labextension:dev
+src/CodeSnippetWidget.tsx:178:78 - error TS2345: Argument of type 'CodeCell' is not assignable to parameter of type 'Cell[]'.
+  Type 'CodeCell' is missing the following properties from type 'Cell[]': length, pop, push, concat, and 31 more.
+
+178         notebookWidget.model?.sharedModel.insertCells(notebookCellIndex + 1, cell);
+                                                                                 ~~~~
+
+src/CodeSnippetWidget.tsx:377:53 - error TS2345: Argument of type '{ placeholder: any; }' is not assignable to parameter of type 'IOptions'.
+  Type '{ placeholder: any; }' is missing the following properties from type 'IOptions': rendermime, model, contentFactory
+
+377     const markdownCell = Factory.createMarkdownCell({placeholder});
+                                                        ~~~~~~~~~~~~~
+
+src/CodeSnippetWidget.tsx:385:11 - error TS2339: Property 'value' does not exist on type 'CodeCell | MarkdownCell'.
+  Property 'value' does not exist on type 'CodeCell'.
+
+385     model.value.text = content;
+              ~~~~~
+
+src/CodeSnippetWidget.tsx:395:47 - error TS2339: Property 'toJSON' does not exist on type 'CodeCell | MarkdownCell'.
+  Property 'toJSON' does not exist on type 'CodeCell'.
+
+395     const selected: nbformat.ICell[] = [model.toJSON()];
+                                                  ~~~~~~
+
+src/CodeSnippetWidget.tsx:515:41 - error TS2339: Property 'refresh' does not exist on type 'IEditor'.
+
+515             this.editors[metadata.name].refresh();
+                                            ~~~~~~~
+
+src/CodeSnippetWidget.tsx:535:46 - error TS2339: Property 'value' does not exist on type 'IModel'.
+
+535         this.editors[codeSnippet.name].model.value.text =
+                                                 ~~~~~
+
+src/CodeSnippetWidget.tsx:547:13 - error TS2345: Argument of type '{ value: any; mimeType: string; }' is not assignable to parameter of type 'IOptions'.
+  Object literal may only specify known properties, and 'value' does not exist in type 'IOptions'.
+
+547             value: codeSnippet.metadata.code.join('\n'),
+                ~~~~~
+
+
+Found 7 errors in the same file, starting at: src/CodeSnippetWidget.tsx:178
+
+Notes:
+contentFactory from NotebookPanel is not working as desired.
+Unable to resolve the parameter error of type IOptions, don't know what exactly to pass.
+Still need to resolve issue wth IEditor and IModel, which is missing from the migration guide.
+Might have to search through the source code to resolve it. 
 
 ## Latest make clean install error
 /Users/xinchaochen/Desktop/RCOS/elyra/packages/python-editor/src/index.ts
