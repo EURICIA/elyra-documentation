@@ -110,103 +110,116 @@ This documentation provides a comprehensive guide for working on Elyra. Follow t
   - Every time running make clean install, have to manually update Jupyter Lab from 3.6x to 4.x
 
 
-## Included Features
+## Need to pass test
 
 ### OK
-- **code-viewer**
+
+**metadata-common**
+
+
+### Working On
 - **services**
-- **theme**
+
+### Need to Work On
 - **script-editor**
+- **pipeline-editor**
+
+
+### To Be Discovered
+- **code-viewer**
+- **theme**
 - **python-editor**
 - **ui-components**
 - **r-editor**
 - **scala-editor**
 - **script-debugger**
 - **metadata**
-
-**metadata-common**
-
-
-### Working On
 - **code-snippet**
-- **pipeline-editor**
 
-### Need to Work On
+# Elyra Project Documentation
 
+## Overview
 
-### To Be Discovered
+This documentation provides guidance on troubleshooting common errors encountered while running tests in the Elyra project.
 
-##code-snippet
-Found 7 errors in the same file, starting at: src/CodeSnippetWidget.tsx:178
+## Error 1: Corepack/Yarn Version Mismatch on workflow
 
-(elyra) xinchaochen@baker-16 code-snippet % jlpm run build:lib && jlpm run build:labextension:dev
-src/CodeSnippetWidget.tsx:178:78 - error TS2345: Argument of type 'CodeCell' is not assignable to parameter of type 'Cell[]'.
-  Type 'CodeCell' is missing the following properties from type 'Cell[]': length, pop, push, concat, and 31 more.
+### Original Issue:
+When attempting to prepare and activate Yarn version 3.5.0 using Corepack, the following error is encountered:
 
-178         notebookWidget.model?.sharedModel.insertCells(notebookCellIndex + 1, cell);
-                                                                                 ~~~~
+```
+Preparing yarn@3.5.0 for immediate activation...
+node:internal/modules/cjs/loader:1146
+  throw err;
+  ^
 
-src/CodeSnippetWidget.tsx:377:53 - error TS2345: Argument of type '{ placeholder: any; }' is not assignable to parameter of type 'IOptions'.
-  Type '{ placeholder: any; }' is missing the following properties from type 'IOptions': rendermime, model, contentFactory
+Error: Cannot find module '/home/runner/work/elyra/elyra/.yarn/releases/yarn-3.5.0.cjs'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1143:15)
+    at Module._load (node:internal/modules/cjs/loader:984:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
 
-377     const markdownCell = Factory.createMarkdownCell({placeholder});
-                                                        ~~~~~~~~~~~~~
+Node.js v20.12.1
+Error: Process completed with exit code 1..
+```
 
-src/CodeSnippetWidget.tsx:385:11 - error TS2339: Property 'value' does not exist on type 'CodeCell | MarkdownCell'.
-  Property 'value' does not exist on type 'CodeCell'.
+### Attempts :
+To address the Yarn version mismatch issue, attempted to update the workflow, but unsuccessful as other errors appears:
 
-385     model.value.text = content;
-              ~~~~~
+1. **Enable Corepack**: Corepack is installed globally and enabled using the following commands:
+   ```yaml
+   - name: Enable Corepack
+     run: |
+       npm install -g corepack
+       corepack enable
+   ```
 
-src/CodeSnippetWidget.tsx:395:47 - error TS2339: Property 'toJSON' does not exist on type 'CodeCell | MarkdownCell'.
-  Property 'toJSON' does not exist on type 'CodeCell'.
+2. **Install and Activate Yarn**: The workflow includes a step to prepare and activate Yarn version 3.5.0 using Corepack:
+   ```yaml
+   - name: Install and Activate Yarn
+     run: |
+       corepack prepare yarn@3.5.0 --activate
+       yarn --version
+   ```
 
-395     const selected: nbformat.ICell[] = [model.toJSON()];
-                                                  ~~~~~~
+## Error 2: Jest Test Failure in @elyra/services
 
-src/CodeSnippetWidget.tsx:515:41 - error TS2339: Property 'refresh' does not exist on type 'IEditor'.
+### Description:
+During the execution of Jest tests for the `@elyra/services` project, the following error is encountered:
 
-515             this.editors[metadata.name].refresh();
-                                            ~~~~~~~
+```
+@elyra/services:  FAIL  src/test/services.spec.ts
+@elyra/services:  - Test suite failed to run
+@elyra/services:     TypeError: Cannot read properties of undefined (reading 'testEnvironmentOptions')
+@elyra/services:       at new JSDOMEnvironment (../../node_modules/jest-environment-jsdom/build/index.js:66:28)
+@elyra/services: Test Suites: 1 failed, 1 total
+@elyra/services: Tests:       0 total
+@elyra/services: Snapshots:   0 total
+@elyra/services: Time:        1.054s
+@elyra/services: Ran all test suites.
+```
 
-src/CodeSnippetWidget.tsx:535:46 - error TS2339: Property 'value' does not exist on type 'IModel'.
+### Progress:
+To address this error, follow these steps:
 
-535         this.editors[codeSnippet.name].model.value.text =
-                                                 ~~~~~
+1. **Review Test Environment Configuration**: Check the test environment setup, particularly the `testEnvironmentOptions`, in the Jest configuration for the `@elyra/services` project.
 
-src/CodeSnippetWidget.tsx:547:13 - error TS2345: Argument of type '{ value: any; mimeType: string; }' is not assignable to parameter of type 'IOptions'.
-  Object literal may only specify known properties, and 'value' does not exist in type 'IOptions'.
+2. **Debug Test Suite**: Have to inspect the test suite in the `services.spec.ts` file to identify any potential issues with the test setup or environment and make necessary changes.
 
-547             value: codeSnippet.metadata.code.join('\n'),
-                ~~~~~
+## Error 3: getIcon is Undefined in Jupyter Lab
 
+### Description:
+When testing Elyra in Jupyter Lab, encountered an error indicating that `getIcon` is undefined when attempting to create an r file and other files under elyra. This error typically occurs when attempting to utilize an icon that is not properly defined or imported.
 
-Found 7 errors in the same file, starting at: src/CodeSnippetWidget.tsx:178
+### Progress:
 
-Notes:
-contentFactory from NotebookPanel is not working as desired.
-Unable to resolve the parameter error of type IOptions, don't know what exactly to pass.
-Still need to resolve issue wth IEditor and IModel, which is missing from the migration guide.
-Might have to search through the source code to resolve it. 
+1. **Checked Icon Usage**: Reviewed the code where `getIcon` is used and ensure that it is being called correctly with a valid icon identifier. But still need further investigation base on the documentations for jupyter lab.
 
-## Latest make clean install error
-/Users/xinchaochen/Desktop/RCOS/elyra/packages/python-editor/src/index.ts
-  25:10  warning  'CodeEditor' is defined but never used   @typescript-eslint/no-unused-vars
-  43:8   warning  'IDisposable' is defined but never used  @typescript-eslint/no-unused-vars
-
-/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormComponents/DropDown.tsx
-  17:8   warning  'Field' is defined but never used                                 @typescript-eslint/no-unused-vars
-  23:11  error    Interface name `DropDownProps` must match the RegExp: /^I[A-Z]/u  @typescript-eslint/naming-convention
-
-/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormComponents/PasswordField.tsx
-  16:8  warning  'Field' is defined but never used  @typescript-eslint/no-unused-vars
-
-/Users/xinchaochen/Desktop/RCOS/elyra/packages/ui-components/src/FormEditor.tsx
-  22:8  warning  'Field' is defined but never used                     @typescript-eslint/no-unused-vars
-  26:3  warning  'RegistryFieldsType' is defined but never used        @typescript-eslint/no-unused-vars
-  29:3  warning  'ErrorListProps' is defined but never used            @typescript-eslint/no-unused-vars
-  30:3  warning  'ObjectFieldTemplateProps' is defined but never used  @typescript-eslint/no-unused-vars
-  31:3  warning  'RJSFSchema' is defined but never used                @typescript-eslint/no-unused-vars
+## Conclusion
+By following the provided steps, you should be able to address the encountered errors and ensure smooth execution of tests and functionality in the Elyra project. If you continue to experience issues, consider reaching out to the project maintainers for further assistance.
 
 ## **Additional Resources**
 - [JupyterLab Extension Migration Guide](https://jupyterlab.readthedocs.io/en/latest/extension/extension_migration.html)
